@@ -1,42 +1,59 @@
+
+:root {
+  --accent: #e53935;
+  --frame: #333;
+}
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    background-color: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', Arial, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  padding: 16px;
+  background: #f7f8fa;
+  color: #222;
+}
+header h1 { margin: 0 0 6px; }
+.controls { margin: 10px 0 14px; }
+.controls .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.controls label { display:flex; gap:6px; align-items:center; }
+.hint { color: #c00; font-weight: 600; margin-top: 6px; }
+
+#canvas-section { display:flex; justify-content:center; }
+#canvas-container {
+  position: relative;
+  width: min(92vw, 960px);
+  aspect-ratio: 16/9;
+  border: 3px solid var(--frame);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  background: #000;
+  user-select: none;
+}
+#video, #canvas, #ocr-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#video { object-fit: cover; filter: contrast(105%) brightness(103%); }
+#canvas { pointer-events: none; }
+#ocr-overlay { pointer-events: none; }
+
+/* ROI selector overlay */
+#roi-selector {
+  position: absolute;
+  border: 2px dashed var(--accent);
+  background-color: rgba(229, 57, 53, 0.16);
+  pointer-events: none;
+  z-index: 10;
 }
 
-.video-container {
-    position: relative;
-    width: 100%;
-    max-width: 640px;
-    margin: 20px auto;
-    border: 3px solid #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-video {
-    width: 100%;
-    display: block;
-}
-
-#ocr-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* 讓滑鼠事件能穿透此元素 */
-}
-
-.text-box {
-    position: absolute;
-    border: 2px solid #00f;
-    color: #00f;
-    font-size: 16px;
-    padding: 2px 4px;
-    background-color: rgba(255, 255, 255, 0.7);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.result { margin-top: 14px; text-align:center; }
+.result-text {
+  font-size: clamp(18px, 3.6vw, 28px);
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #0b8457;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 8px;
+  display: inline-block;
+  min-width: 240px;
 }

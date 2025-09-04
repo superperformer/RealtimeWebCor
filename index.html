@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>即時 Web OCR 辨識</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>即時 ULD 櫃號 OCR</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Libraries -->
+  <script defer src="https://docs.opencv.org/4.x/opencv.js"></script>
+  <script defer src="https://unpkg.com/tesseract.js@v4.0.2/dist/tesseract.min.js"></script>
 </head>
 <body>
+  <header>
+    <h1>即時 ULD 櫃號 OCR</h1>
+    <p id="status-message">載入中…</p>
+  </header>
 
-    <h1>即時 OCR 辨識</h1>
-    <p id="status-message">載入中...</p>
-
-    <div class="video-container">
-        <video id="video" autoplay playsinline></video>
-        <div id="ocr-overlay"></div>
+  <section class="controls">
+    <div class="row">
+      <label>PSM：
+        <select id="psm-select">
+          <option value="7" selected>7 - 單行 (Single line)</option>
+          <option value="6">6 - 單一段落 (Single block)</option>
+        </select>
+      </label>
+      <label>節流 (ms)：<input id="interval-input" type="number" min="100" step="50" value="400"/></label>
+      <label>焦點閾值：<input id="focus-th-input" type="number" min="0" step="5" value="80"/></label>
+      <button id="clear-roi">清除 ROI</button>
     </div>
+    <div class="hint" id="roi-instruction">提示：按住滑鼠左鍵並拖曳於畫面可框選 ROI 區域（未選則預設使用中間 40% × 90%）。</div>
+  </section>
 
-    <canvas id="canvas" style="display: none;"></canvas>
+  <section id="canvas-section">
+    <div id="canvas-container">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+      <div id="roi-selector" hidden></div>
+      <div id="ocr-overlay"></div>
+    </div>
+  </section>
 
-    <h2>辨識結果：</h2>
-    <div id="output-text"></div>
+  <section class="result">
+    <h3>辨識結果：</h3>
+    <div id="output-text" class="result-text">(等待中…)</div>
+  </section>
 
-    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
-    <script src="app.js"></script>
-
+  <script defer src="app.js"></script>
 </body>
 </html>
