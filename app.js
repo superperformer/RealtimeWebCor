@@ -258,7 +258,9 @@ async function loop(){
       outputText.textContent = voted || accepted;
       statusMessage.textContent = `OK (conf=${bestConf.toFixed(1)}, focus=${focus.toFixed(0)})`;
     }else{
-      statusMessage.textContent = `未命中格式 (conf=${bestConf.toFixed(1)}, focus=${focus.toFixed(0)})`;
+      // 顯示格式不符的文字
+      outputText.textContent = raw;
+      statusMessage.textContent = `未命中格式 (辨識文字: ${raw}) (conf=${bestConf.toFixed(1)}, focus=${focus.toFixed(0)})`;
     }
 
     drawRoiGuide();
